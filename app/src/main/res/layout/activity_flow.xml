@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".FlowActivity"
-    android:background="@drawable/background">
+    android:background="@drawable/background_gradient">
 
     <TextView
         android:id="@+id/textAguaFlow"
@@ -15,7 +14,11 @@
         android:text="Água Flow"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:shadowColor="#000000"
+        android:shadowDx="5"
+        android:shadowDy="0"
+        android:shadowRadius="9" />
 
     <ImageView
         android:id="@+id/profileImage"
@@ -26,7 +29,9 @@
         android:layout_marginTop="16dp"
         android:src="@drawable/avatar"
         android:scaleType="centerCrop"
-        android:padding="10dp" />
+        android:padding="10dp"
+        android:elevation="8dp"
+        android:background="@drawable/avatar_background"/>
 
     <ImageView
         android:id="@+id/goButton"
@@ -40,50 +45,42 @@
 
     <Button
         android:id="@+id/button5min"
+        style="@style/CustomButton"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/goButton"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
-        android:background="@drawable/button_background"
-        android:text="5 min"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp" />
+        android:text="5 min" />
 
     <Button
         android:id="@+id/button10min"
+        style="@style/CustomButton"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/button5min"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:background="@drawable/button_background"
-        android:text="10 min"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp" />
+        android:text="10 min" />
 
     <Button
         android:id="@+id/button15min"
+        style="@style/CustomButton"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/button10min"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:background="@drawable/button_background"
-        android:text="15 min"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp" />
+        android:text="15 min" />
 
     <Button
         android:id="@+id/buttonOutros"
+        style="@style/CustomButton"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/button15min"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:background="@drawable/button_background"
-        android:text="Outros"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp" />
+        android:text="Outros" />
 
 </RelativeLayout>

@@ -8,80 +8,67 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
 class TimerActivity : AppCompatActivity() {
-
     private lateinit var countDownTimer: CountDownTimer
-    private lateinit var textViewTimer: TextView
-    private var timerDuration: Int = 0
-    private var millisUntilFinished: Long = 0
+    private var isRunning: Boolean = false
+    private var timeLeftInMillis: Long = 0
+    private var totalLiters: Double = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_timer)
 
-        // Recupera o tempo do extra
-        timerDuration = intent.getIntExtra("timer_duration", 0)
-
-        // Encontra o TextView do timer
-        textViewTimer = findViewById(R.id.textTimer)
-
-        // Encontra o botão stop e configura o listener
+        val textTimer = findViewById<TextView>(R.id.textTimer)
         val stopButton = findViewById<ImageView>(R.id.stopButton)
+
+        // Recebe o email do usuário
+        val email = intent.getStringExtra("USER_EMAIL")
+
+        // Configura a duração do timer
+        val duration = intent.getIntExtra("timer_duration", 0)
+        timeLeftInMillis = duration * 60000L // Converte minutos para milissegundos
+
+        startTimer(textTimer)
+
         stopButton.setOnClickListener {
-            stopTimer()
+            if (isRunning) {
+                countDownTimer.cancel()
+                isRunning = false
+                totalLiters = calculateLiters(timeLeftInMillis)
+                navigateToSummary(email, totalLiters)
+            }
         }
-
-        // Converte o tempo para milissegundos
-        val durationInMillis = timerDuration * 60 * 1000L
-
-        // Inicia a contagem regressiva
-        startTimer(durationInMillis)
     }
 
-    private fun startTimer(durationInMillis: Long) {
-        countDownTimer = object : CountDownTimer(durationInMillis, 1000) {
+    private fun startTimer(textTimer: TextView) {
+        countDownTimer = object : CountDownTimer(timeLeftInMillis, 1000) {
             override fun onTick(millisUntilFinished: Long) {
-                this@TimerActivity.millisUntilFinished = millisUntilFinished
-                // Calcula o tempo restante em minutos e segundos
-                val minutes = millisUntilFinished / 1000 / 60
-                val seconds = millisUntilFinished / 1000 % 60
-                // Atualiza o TextView com o tempo restante
-                textViewTimer.text = String.format("%02d:%02d", minutes, seconds)
+                timeLeftInMillis = millisUntilFinished
+                val secondsLeft = millisUntilFinished / 1000
+                textTimer.text = String.format("%02d:%02d:%02d",
+                    secondsLeft / 3600,
+                    (secondsLeft % 3600) / 60,
+                    secondsLeft % 60)
             }
 
             override fun onFinish() {
-                // Quando o tempo acabar, vai para a SummaryActivity
-                navigateToSummaryActivity()
+                isRunning = false
+                totalLiters = calculateLiters(0)
+                navigateToSummary(intent.getStringExtra("USER_EMAIL"), totalLiters)
             }
         }.start()
+        isRunning = true
     }
 
-    private fun stopTimer() {
-        countDownTimer.cancel()
-        navigateToSummaryActivity()
+    private fun calculateLiters(timeLeftInMillis: Long): Double {
+        val secondsElapsed = (intent.getIntExtra("timer_duration", 0) * 60) - (timeLeftInMillis / 1000)
+        return secondsElapsed * 0.3
     }
 
-    private fun navigateToSummaryActivity() {
-        // Calcula o tempo decorrido
-        val elapsedMillis = timerDuration * 60 * 1000L - millisUntilFinished
-        val elapsedMinutes = elapsedMillis / 1000 / 60
-        val elapsedSeconds = elapsedMillis / 1000 % 60
-        val elapsedTime = String.format("%02d:%02d", elapsedMinutes, elapsedSeconds)
-
-        // Calcula os litros gastos
-        val totalElapsedSeconds = elapsedMillis / 1000
-        val litrosGastos = totalElapsedSeconds * 0.30 / 1000 // Convertendo ml para litros
-
-        // Inicia a SummaryActivity com os dados
+    private fun navigateToSummary(email: String?, totalLiters: Double) {
         val intent = Intent(this, SummaryActivity::class.java)
-        intent.putExtra("total_time", elapsedTime)
-        intent.putExtra("litros_gastos", litrosGastos)
+        intent.putExtra("USER_EMAIL", email)
+        intent.putExtra("TOTAL_LITERS", totalLiters)
         startActivity(intent)
         finish()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        // Cancela a contagem regressiva se a atividade for destruída
-        countDownTimer.cancel()
     }
 }

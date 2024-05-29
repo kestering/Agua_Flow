@@ -1,6 +1,7 @@
 package com.example.agua_flow
 
 import android.os.Bundle
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
@@ -9,15 +10,22 @@ class SummaryActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_summary)
 
-        // Recupera os dados passados pela TimerActivity
-        val totalTime = intent.getStringExtra("total_time") ?: "00:00"
-        val litrosGastos = intent.getDoubleExtra("litros_gastos", 0.0)
+        val profileImage = findViewById<ImageView>(R.id.profileImage)
+        val textUsername = findViewById<TextView>(R.id.textAguaFlow)
+        val textTimer = findViewById<TextView>(R.id.textTimer)
+        val textLitros = findViewById<TextView>(R.id.textLitros)
 
-        // Exibe os dados nos TextViews correspondentes
-        val textViewTimer = findViewById<TextView>(R.id.textTimer)
-        textViewTimer.text = totalTime
+        val email = intent.getStringExtra("USER_EMAIL")
+        val totalLiters = intent.getDoubleExtra("TOTAL_LITERS", 0.0)
 
-        val textViewLitros = findViewById<TextView>(R.id.textLitros)
-        textViewLitros.text = String.format("%.2f L", litrosGastos)
+        if (email == "user_masculino@example.com") {
+            profileImage.setImageResource(R.drawable.avatar)
+            textUsername.text = "João"
+        } else if (email == "user_feminino@example.com") {
+            profileImage.setImageResource(R.drawable.avatar_feminino)
+            textUsername.text = "Maria"
+        }
+
+        textLitros.text = String.format("%.2f L", totalLiters)
     }
 }

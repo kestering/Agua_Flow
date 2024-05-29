@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".HomeActivity"
-    android:background="@drawable/background">
+    android:background="@drawable/background_gradient">
 
     <TextView
         android:id="@+id/textAguaFlow"
@@ -15,7 +14,11 @@
         android:text="Água Flow"
         android:textColor="#FFFFFF"
         android:textSize="50sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:shadowColor="#000000"
+        android:shadowDx="5"
+        android:shadowDy="0"
+        android:shadowRadius="9"/>
 
     <ImageView
         android:id="@+id/profileImage"
@@ -26,8 +29,9 @@
         android:layout_marginTop="30dp"
         android:src="@drawable/avatar"
         android:scaleType="centerCrop"
-        android:background="@drawable/background"
-        android:padding="10dp" />
+        android:background="@drawable/avatar_background"
+        android:padding="10dp"
+        android:elevation="8dp"/>
 
     <TextView
         android:id="@+id/textUsername"
@@ -39,53 +43,49 @@
         android:text="User"
         android:textColor="#FFFFFF"
         android:textSize="30sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:shadowColor="#000000"
+        android:shadowDx="5"
+        android:shadowDy="0"
+        android:shadowRadius="9"/>
 
     <Button
         android:id="@+id/buttonStartFlow"
+        style="@style/CustomButton"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/textUsername"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:background="@drawable/button_background"
-        android:text="Start Flow"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp" />
+        android:text="Start Flow"/>
 
     <Button
         android:id="@+id/buttonScore"
+        style="@style/CustomButton"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/buttonStartFlow"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:background="@drawable/button_background"
-        android:text="Pontuação"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp" />
+        android:text="Pontuação"/>
 
     <Button
         android:id="@+id/buttonSettings"
+        style="@style/CustomButton"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/buttonScore"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:background="@drawable/button_background"
-        android:text="Configurações"
-        android:textSize="20sp"/>
+        android:text="Configurações"/>
 
     <Button
         android:id="@+id/buttonExit"
+        style="@style/CustomButton"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/buttonSettings"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:background="@drawable/button_background"
-        android:textSize="20sp"
-        android:text="Sair"
-        />
-
+        android:text="Sair"/>
 </RelativeLayout>

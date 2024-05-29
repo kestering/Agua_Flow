@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SummaryActivity"
-    android:background="@drawable/background">
+    android:background="@drawable/background_gradient">
 
     <TextView
         android:id="@+id/textAguaFlow"
@@ -15,7 +14,11 @@
         android:text="Água Flow"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:shadowColor="#000000"
+        android:shadowDx="5"
+        android:shadowDy="0"
+        android:shadowRadius="9" />
 
     <ImageView
         android:id="@+id/profileImage"
@@ -25,8 +28,10 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:src="@drawable/avatar"
+        android:background="@drawable/avatar_background"
         android:scaleType="centerCrop"
-        android:padding="10dp" />
+        android:padding="10dp"
+        android:elevation="8dp" />
 
     <TextView
         android:id="@+id/textTempoTotal"
@@ -34,11 +39,15 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/textAguaFlow"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="50dp"
         android:text="Tempo Total"
         android:textColor="#FFFFFF"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+        android:textSize="44sp"
+        android:textStyle="bold"
+        android:shadowColor="#000000"
+        android:shadowDx="5"
+        android:shadowDy="0"
+        android:shadowRadius="9" />
 
     <TextView
         android:id="@+id/textTimer"
@@ -46,11 +55,15 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/textTempoTotal"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="30dp"
         android:text="00:15:42"
         android:textColor="#FFFFFF"
         android:textSize="36sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:shadowColor="#000000"
+        android:shadowDx="5"
+        android:shadowDy="0"
+        android:shadowRadius="9" />
 
     <ImageView
         android:id="@+id/graphImage"
@@ -58,7 +71,7 @@
         android:layout_height="150dp"
         android:layout_below="@id/textTimer"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:src="@drawable/results"
         android:scaleType="centerInside" />
 
@@ -68,11 +81,15 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/graphImage"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="90dp"
         android:text="Litros Gastos"
         android:textColor="#FFFFFF"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+        android:textSize="34sp"
+        android:textStyle="bold"
+        android:shadowColor="#000000"
+        android:shadowDx="5"
+        android:shadowDy="0"
+        android:shadowRadius="9" />
 
     <TextView
         android:id="@+id/textLitros"
@@ -83,7 +100,11 @@
         android:layout_marginTop="10dp"
         android:text="138,78L"
         android:textColor="#FFFFFF"
-        android:textSize="36sp"
-        android:textStyle="bold" />
+        android:textSize="46sp"
+        android:textStyle="bold"
+        android:shadowColor="#000000"
+        android:shadowDx="5"
+        android:shadowDy="0"
+        android:shadowRadius="9" />
 
 </RelativeLayout>
