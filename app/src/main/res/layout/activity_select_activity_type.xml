@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeActivity"
+    tools:context=".SelectActivityTypeActivity"
     android:background="@drawable/background_gradient">
 
     <TextView
@@ -35,71 +35,53 @@
         android:shadowDy="0"
         android:shadowRadius="5"/>
 
-    <ImageView
-        android:id="@+id/profileImage"
-        android:layout_width="117dp"
-        android:layout_height="110dp"
-        android:layout_below="@id/textAguaFlow"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:elevation="8dp"
-        android:padding="10dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/avatar" />
 
     <TextView
-        android:id="@+id/textUsername"
+        android:id="@+id/textSelectActivityType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/profileImage"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:text="User"
+        android:layout_below="@id/textAguaFlow"
+        android:layout_marginTop="50dp"
+        android:text="Selecione o Tipo de Atividade"
         android:textColor="#FFFFFF"
-        android:textSize="30sp"
+        android:textSize="24sp"
         android:textStyle="bold"
         android:shadowColor="#000000"
         android:shadowDx="5"
         android:shadowDy="0"
-        android:shadowRadius="9"/>
+        android:shadowRadius="9" />
 
     <Button
-        android:id="@+id/buttonStartFlow"
+        android:id="@+id/buttonShower"
+
         style="@style/CustomButton"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/textUsername"
+        android:layout_below="@id/textSelectActivityType"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="60dp"
-        android:text="Start Flow"/>
+        android:text="Banho"/>
 
     <Button
-        android:id="@+id/buttonScore"
+        android:id="@+id/buttonWashDishes"
+
         style="@style/CustomButton"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/buttonStartFlow"
+        android:layout_below="@id/buttonShower"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:text="Pontuação"/>
+        android:layout_marginTop="20dp"
+        android:text="Lavar Louça"/>
 
     <Button
-        android:id="@+id/buttonSettings"
+        android:id="@+id/buttonCleanYard"
         style="@style/CustomButton"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/buttonScore"
+        android:layout_below="@id/buttonWashDishes"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:text="Configurações"/>
+        android:layout_marginTop="20dp"
+        android:text="Lavar o Quintal"/>
 
-    <Button
-        android:id="@+id/buttonExit"
-        style="@style/CustomButton"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/buttonSettings"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:text="Sair"/>
 </RelativeLayout>

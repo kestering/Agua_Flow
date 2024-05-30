@@ -16,6 +16,8 @@ class HomeActivity : AppCompatActivity() {
         val profileImage = findViewById<ImageView>(R.id.profileImage)
         val textUsername = findViewById<TextView>(R.id.textUsername)
         val buttonStartFlow = findViewById<Button>(R.id.buttonStartFlow)
+        val buttonScore = findViewById<Button>(R.id.buttonScore)
+        val buttonExit = findViewById<Button>(R.id.buttonExit)
         val email = intent.getStringExtra("USER_EMAIL")
 
         if (email == "user_masculino@example.com") {
@@ -27,9 +29,22 @@ class HomeActivity : AppCompatActivity() {
         }
 
         buttonStartFlow.setOnClickListener {
-            val intent = Intent(this, FlowActivity::class.java)
+            val intent = Intent(this, SelectActivityTypeActivity::class.java)
             intent.putExtra("USER_EMAIL", email)
             startActivity(intent)
+        }
+
+        buttonScore.setOnClickListener {
+            val intent = Intent(this, SummaryActivity::class.java)
+            intent.putExtra("USER_EMAIL", email)
+            startActivity(intent)
+        }
+
+        buttonExit.setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+            finish()
         }
     }
 }

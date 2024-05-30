@@ -8,10 +8,13 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
 class TimerActivity : AppCompatActivity() {
-    private lateinit var countDownTimer: CountDownTimer
-    private var isRunning: Boolean = false
-    private var timeLeftInMillis: Long = 0
-    private var totalLiters: Double = 0.0
+
+    private lateinit var timer: CountDownTimer
+    private var totalLitersUsed = 0.0
+    private var litersSaved = 0.0
+    private var pointsEarned = 0
+    private var timeElapsed: Long = 0
+    private var waterUsagePerMinute: Double = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,54 +23,46 @@ class TimerActivity : AppCompatActivity() {
         val textTimer = findViewById<TextView>(R.id.textTimer)
         val stopButton = findViewById<ImageView>(R.id.stopButton)
 
-        // Recebe o email do usuário
-        val email = intent.getStringExtra("USER_EMAIL")
+        val durationInMinutes = intent.getIntExtra("timer_duration", 0)
+        val durationInMillis = (durationInMinutes * 60 * 1000).toLong()
+        waterUsagePerMinute = intent.getDoubleExtra("WATER_USAGE_PER_MINUTE", 0.0)
 
-        // Configura a duração do timer
-        val duration = intent.getIntExtra("timer_duration", 0)
-        timeLeftInMillis = duration * 60000L // Converte minutos para milissegundos
-
-        startTimer(textTimer)
-
-        stopButton.setOnClickListener {
-            if (isRunning) {
-                countDownTimer.cancel()
-                isRunning = false
-                totalLiters = calculateLiters(timeLeftInMillis)
-                navigateToSummary(email, totalLiters)
-            }
-        }
-    }
-
-    private fun startTimer(textTimer: TextView) {
-        countDownTimer = object : CountDownTimer(timeLeftInMillis, 1000) {
+        timer = object : CountDownTimer(durationInMillis, 1000) {
             override fun onTick(millisUntilFinished: Long) {
-                timeLeftInMillis = millisUntilFinished
-                val secondsLeft = millisUntilFinished / 1000
-                textTimer.text = String.format("%02d:%02d:%02d",
-                    secondsLeft / 3600,
-                    (secondsLeft % 3600) / 60,
-                    secondsLeft % 60)
+                val seconds = millisUntilFinished / 1000
+                val minutes = seconds / 60
+                val remainingSeconds = seconds % 60
+                textTimer.text = String.format("%02d:%02d", minutes, remainingSeconds)
+                totalLitersUsed += waterUsagePerMinute / 60
+                timeElapsed = durationInMillis - millisUntilFinished
             }
 
             override fun onFinish() {
-                isRunning = false
-                totalLiters = calculateLiters(0)
-                navigateToSummary(intent.getStringExtra("USER_EMAIL"), totalLiters)
+                calculateSavings()
+                goToSummary()
             }
         }.start()
-        isRunning = true
+
+        stopButton.setOnClickListener {
+            timer.cancel()
+            calculateSavings()
+            goToSummary()
+        }
     }
 
-    private fun calculateLiters(timeLeftInMillis: Long): Double {
-        val secondsElapsed = (intent.getIntExtra("timer_duration", 0) * 60) - (timeLeftInMillis / 1000)
-        return secondsElapsed * 0.3
+    private fun calculateSavings() {
+        // Calcular a economia de água e pontos
+        litersSaved = totalLitersUsed // Simplificando para demonstração
+        pointsEarned = (litersSaved * 10).toInt()
     }
 
-    private fun navigateToSummary(email: String?, totalLiters: Double) {
-        val intent = Intent(this, SummaryActivity::class.java)
-        intent.putExtra("USER_EMAIL", email)
-        intent.putExtra("TOTAL_LITERS", totalLiters)
+    private fun goToSummary() {
+        val intent = Intent(this, SummaryActivity::class.java).apply {
+            putExtra("total_liters_used", totalLitersUsed)
+            putExtra("liters_saved", litersSaved)
+            putExtra("points_earned", pointsEarned)
+            putExtra("time_elapsed", timeElapsed)
+        }
         startActivity(intent)
         finish()
     }
